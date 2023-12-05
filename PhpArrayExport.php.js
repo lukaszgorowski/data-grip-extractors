@@ -60,7 +60,7 @@ function addOutputString() {
 output(LBRACKET, NEWLINE);
 
 eachWithIdx(ROWS, function (row, i) {
-    addOutputString(IDENT, quoted(i), ARROW, LBRACKET, NEWLINE);
+    addOutputString(LBRACKET, NEWLINE);
     mapEach(COLUMNS, function (col) {
         addOutputString(IDENT, IDENT, quoted(col.name()), ARROW, quoted(escape(FORMATTER.format(row, col))), COMMA, NEWLINE);
     });
