@@ -49,14 +49,24 @@ function output() {
     }
 }
 
-output("<?php", NEWLINE,
-    "return ", LBRACKET, NEWLINE);
+var toReturnString = '';
+
+function addOutputString() {
+    for (var i = 0; i < arguments.length; i++) {
+        toReturnString = toReturnString + arguments[i];
+    }
+}
+
+output(LBRACKET, NEWLINE);
 
 eachWithIdx(ROWS, function (row, i) {
-    output(IDENT, quoted(i), ARROW, LBRACKET, NEWLINE);
+    addOutputString(IDENT, quoted(i), ARROW, LBRACKET, NEWLINE);
     mapEach(COLUMNS, function (col) {
-        output(IDENT, IDENT, quoted(col.name()), ARROW, quoted(escape(FORMATTER.format(row, col))), COMMA, NEWLINE);
+        addOutputString(IDENT, IDENT, quoted(col.name()), ARROW, quoted(escape(FORMATTER.format(row, col))), COMMA, NEWLINE);
     });
-    output(IDENT, RBRACKET, COMMA, NEWLINE);
+    addOutputString(IDENT, RBRACKET, COMMA, NEWLINE);
 });
+
+
+output(toReturnString);
 output(RBRACKET, ";", NEWLINE);
