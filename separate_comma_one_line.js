@@ -28,7 +28,15 @@ var NEWLINE = "\n",
 
 
 function isInteger(x) {
-    return x % 1 === 0;
+    if (typeof x === 'string') {
+        x = x.trim();
+        if (x === '') {
+            return false;
+        }
+        x = Number(x);
+    }
+
+    return typeof x === 'number' && !isNaN(x) && x % 1 === 0;
 }
 
 function quoted(val) {
